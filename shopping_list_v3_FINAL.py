@@ -1,3 +1,12 @@
+import argparse
+
+parser = argparse.ArgumentParser()    #Something that will process text and extract meaning from it
+
+parser.add_argument("--name","-n",type=str,default=None,help="Enter the filename")
+
+args = parser.parse_args()
+print(args.name)
+
 shopping_list = []
 
 # ----- adding items -----
@@ -85,8 +94,8 @@ def save_list():
 
 # ----- loading list -----
 
-def load_list():
-  file_name = input('Enter the name of the file you want to open: ')
+def load_list(file_name):
+ 
   loaded_list = []
 
   with open(file_name, 'r') as f:
@@ -125,6 +134,7 @@ def display_menu():
   print ('-------------------------------')
 
 def menu():
+  global shopping_list
   while True:
     display_menu()
     choice = input('Enter your choice (1-7): ')
@@ -145,7 +155,8 @@ def menu():
         save_list()
 
       elif choice_int == 5:
-        load_list()
+        file_name = input('Enter the name of the file you want to open: ')
+        shopping_list = load_list(file_name)
 
       elif choice_int == 6:
         clear_list()  
@@ -162,4 +173,5 @@ def menu():
 
 
 if __name__ == '__main__':
+  shopping_list = load_list(args.name)
   menu()
